@@ -3,11 +3,12 @@ vents = [[i.split(' -> ')[0].split(','), i.split(' -> ')[1].split(',')] for i in
 v = np.array(vents, dtype='int')
 # Part 1:
 def scan(v, part):
-  grid = np.array([[0] * (max(max(v[:, 0, 1]), max(v[:, 1, 1])) + 3)] * (max(max(v[:, 0, 0]), max(v[:, 1, 0])) + 3))
+  dim = np.max(v) + 1
+  grid = np.zeros((dim, dim))
   for l in v:
     x,y = l[:, 0], l[:, 1]
     if x[0] == x[1]:
-    # for vertical lines from part 1
+      # for vertical lines from part 1
       ys = sorted(y.copy())
       grid[ys[0]:ys[1] + 1, x[0]] += 1
     elif y[0] == y[1]:
@@ -20,7 +21,7 @@ def scan(v, part):
       pos_x = range(x[0], x[1]-1, -1) if x[0] > x[1] else range(x[0], x[1] + 1)
       for i,j in zip(pos_y, pos_x):
         grid[i,j] += 1
-  return sum([1 for row in grid for col in row if col > 1])
+  return np.sum(grid > 1)
 print('Part 1 result is:', scan(v, 1))
 # Part 2:
 print('Part 2 result is:', scan(v, 2))
