@@ -1,15 +1,15 @@
 from time import perf_counter as pfc
 from collections import defaultdict
+import numpy as np
 #
-pos = [int(i) for i in open('day07.txt', 'r').read().strip().split(',')]
+pos = np.array([int(i) for i in open('day07.txt', 'r').read().strip().split(',')])
 #
 def find(pos):
   fuel = defaultdict(int)
   rem = []
   for i in pos:
-    for j in pos:
-      if i not in rem:
-        fuel[i] += abs(j-i)
+    if i not in rem:
+      fuel[i] += np.sum(abs(pos - i))
     rem.append(i)
   return min(fuel.values())
 #
@@ -17,9 +17,9 @@ def find2(pos):
   fuel = defaultdict(int)
   rem = []
   for i in pos:
-    for j in pos:
-      if i not in rem:
-        fuel[i] += int(abs(j-i) * (abs(j-i) + 1) / 2)
+    if i not in rem:
+      d = abs(pos - i)
+      fuel[i] += np.sum([int(n * (n + 1) / 2) for n in d])
     rem.append(i)
   return min(fuel.values())
 # Part 1:
