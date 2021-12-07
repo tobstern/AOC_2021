@@ -7,6 +7,7 @@ sys.setrecursionlimit(2*max(pos))
 #
 def consumed(i):
   # 1+2+3+4+5+6+7+8+9...
+  # calc the sum with recursion - there is definitely a much faster way...
   if i <= 1:
     return i
   j = consumed(i-1)
@@ -33,6 +34,6 @@ def find2(pos):
   return min(fuel.values())
 # Part 1:
 start = pfc()
-#print('Part 1 result is:', find(pos), ', t =', pfc()-start)
+print('Part 1 result is:', find(pos), ', t =', pfc()-start)
 # Part 2:
 print('Part 2 result is:', find2(pos), ', t =', pfc()-start)
