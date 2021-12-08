@@ -15,11 +15,12 @@ def easy_digis(d, e_n):
 def get_digit(i, nums):
   return [str(pos) for pos,k in enumerate(nums) if ''.join(i) ==  ''.join(sorted(list(k)))][0]
 #
-def p2(d, e_n):
+def map_digis(d, e_n):
   res = []
   for i in d:
     for j in i[0]:
-      j = frozenset(j)
+      # first map all segment combinations to the numbers 0-9:
+      j = set(j)
       if len(j) == 2:
         one = j
       if len(j) == 4:
@@ -29,7 +30,7 @@ def p2(d, e_n):
       if len(j) == 7:
         eight = j
     for j in i[0]:
-      j = frozenset(j)
+      j = set(j)
       if len(j) == 5:
         # 2,3,5
         if len(j - one) == 3:
@@ -46,9 +47,10 @@ def p2(d, e_n):
           nine = j
         if len(j - (four - one)) == 5:
             zero = j
-    #
+    # now we have mapped every number 0-9 for the current display
     nums = [zero,one,two,three,four,five,six,seven,eight,nine]
     temp = []
+    # and we can get our 4 digits...
     for k in i[1]:
       j = sorted(k)
       temp.append(get_digit(j, nums))
@@ -60,4 +62,4 @@ start1 = pfc()
 print('Part 1 result is:', easy_digis(disp, easy_nums), ', t =', pfc()-start1)
 # Part 2:
 start2 = pfc()
-print('Part 2 result is:', p2(disp, easy_nums), ', t =', pfc()-start2)
+print('Part 2 result is:', map_digis(disp, easy_nums), ', t =', pfc()-start2)
