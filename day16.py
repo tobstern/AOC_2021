@@ -62,6 +62,7 @@ def parse(b):
     # same header
     # determine mode (0|1):
     if b[6] == 0:
+      # following while-loops are from @qoheniac
       # length of bits of following sub-packets
       sub_le = 22
       le = sub_le + b2d(b[7:22])
